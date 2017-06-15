@@ -1,0 +1,84 @@
+#https://angular.io/guide/template-syntax
+
+#Expression context
+
+     {{title}}
+    <span [hidden]="isUnchanged">changed</span>
+   
+ ###In the following snippets, the title within double-curly braces and the isUnchanged in quotes refer to properties of the AppComponent.
+ ###If you reference a name that belongs to more than one of these namespaces, the template variable name takes precedence, 
+ followed by a name in the directive's context, and, lastly, the component's member names.
+ 
+ <div *ngFor="let hero of heroes">{{hero.name}}</div>
+<input #heroInput> {{heroInput.value}}
+###The previous example presents such a name collision. The component has a hero property and the *ngFor defines a hero template variable. 
+The hero in {{hero.name}} refers to the template input variable, not the component's property.
+ 
+ #Template statements
+ <button (click)="deleteHero()">Delete hero</button>
+
+
+#Template context names take precedence over component context names. In deleteHero(hero) below, the hero is the template input variable, 
+not the component's hero property.
+<button (click)="onSave($event)">Save</button>
+<button *ngFor="let hero of heroes" (click)="deleteHero(hero)">{{hero.name}}</button>
+<form #heroForm (ngSubmit)="onSubmit(heroForm)"> ... </form>
+
+###exp 2 :
+{{mail.message}} refers to context element reference name and takes precedence over the mail variable in service
+template: `
+  {{mail.message}}  
+  <div>
+  
+    <h1 first>Hello, Angular</h1>
+    <h2>No first here</h2>
+    <h3 first>This will be gone</h3>
+    Enter : <input type='text' [value] ='email' #mail (input)='onIn(mail.value)'>
+    <app-simple-form></app-simple-form>
+
+</div>`
+
+#Template expression must be idempotent i.e {{}} value inside should return the same value
+
+
+#Binding targets
+https://angular.io/guide/template-syntax#binding-targets
+
+The target of a data binding is something in the DOM. Depending on the binding type, 
+the target can be an (element | component | directive) property, an (element | component | directive) 
+event,or (rarely) an attribute name.
+
+#ngModel
+Enter : <input type='text' [ngModel] ='email' (ngModelChange)="email =$event" >
+
+#attribute directives
+https://angular.io/guide/template-syntax#attribute-directives
+
+NgClass - add and remove a set of CSS classes
+NgStyle - add and remove a set of HTML styles
+NgModel - two-way data binding to an HTML form element back to top
+
+#structural directives
+NgIf - conditionally add or remove an element from the DOM
+NgFor - repeat a template for each item in a list
+NgSwitch - a set of directives that switch among alternative views
+
+#Input and output properties ( @Input and @Output )
+
+
+
+
+
+
+
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
