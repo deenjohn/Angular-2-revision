@@ -35,3 +35,97 @@ export class AppComponent {
   ){}
 }
  
+
+###https://angular.io/guide/component-interaction
+passing an Object and a string to child component
+
+import { Component } from '@angular/core';
+import { HEROES } from './hero';
+HeroParentComponent
+@Component({
+  selector: 'hero-parent',
+  template: `
+    <h2>{{master}} controls {{heroes.length}} heroes</h2>
+    <hero-child *ngFor="let hero of heroes"
+      [hero]="hero"
+      [master]="master">
+    </hero-child>
+  `
+})
+export class HeroParentComponent {
+  heroes = HEROES;
+  master = 'Master';
+}
+
+
+HeroChildComponent
+
+import { Component, Input } from '@angular/core';
+import { Hero } from './hero';
+@Component({
+  selector: 'hero-child',
+  template: `
+    <h3>{{hero.name}} says:</h3>
+    <p>I, {{hero.name}}, am at your service, {{masterName}}.</p>
+  `
+})
+export class HeroChildComponent {
+  @Input() hero: Hero;
+  @Input('master') masterName: string;
+}
+
+hero.ts
+
+export class Hero {
+  name: string;
+}
+
+export const HEROES = [
+  {name: 'Mr. IQ'},
+  {name: 'Magneta'},
+  {name: 'Bombasto'}
+];
+
+
+
+#Intercept input property changes with a setter
+https://angular.io/guide/component-interaction#intercept-input-property-changes-with-a-setter
+
+name-child component
+@Input()
+  set name(name: string) {
+    this._name = (name && name.trim()) || '<no name set>';
+  }
+  
+  
+  
+name-parent component  
+
+@Component({
+  selector: 'name-parent',
+  template: `
+  <h2>Master controls {{names.length}} names</h2>
+  <name-child *ngFor="let name of names" [name]="name"></name-child>
+  `
+})
+export class NameParentComponent {
+  // Displays 'Mr. IQ', '<no name set>', 'Bombasto'
+  names = ['Mr. IQ', '   ', '  Bombasto  '];
+}
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
