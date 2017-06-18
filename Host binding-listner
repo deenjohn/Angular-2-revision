@@ -1,7 +1,16 @@
 https://stackoverflow.com/questions/37965647/hostbinding-and-hostlistener-what-do-they-do-and-what-are-they-for#
 
+@HostBinding (): to which property of the host element we want to bind
 
-
+### In below code , we are setting two input value of child component from parent component
+           ex 1: <p appBetterHighlight  [highlightColor]="'red'" [defaultColor]="yellow">Style me with a better directive!</p>
+                  @Input() highlightColor: string = 'blue';
+                  @Input() defaultColor: string = 'transparent';
+                  
+            ex 2 : property has same name as directive name
+            <p [appBetterHighlight]="'red'" defaultColor="yellow">Style me with a better directive!</p>
+             @Input('appBetterHighlight') highlightColor: string = 'blue';
+             @Input() defaultColor: string = 'transparent';
 
 @Directive({
   selector: '[appBetterHighlight]'
