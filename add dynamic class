@@ -1,0 +1,25 @@
+ [class.error]="isInvalid(baseAmount)"
+
+isInvalid(value) {
+    return !Number.isFinite(value);
+  }
+
+@Component({
+  selector: 'currency-converter',
+  template: `
+    <input type="number" [(ngModel)]="baseAmount"
+      [class.error]="isInvalid(baseAmount)">
+    <currency-select [(selected)]="baseCurrency"></currency-select>
+    = <strong>{{targetAmount}}</strong>
+    <currency-select [(selected)]="targetCurrency"></currency-select>
+  `,
+  styles: [`
+    input[type=number] {
+      width: 10ex;
+      text-align: right;
+    }
+    .error {
+      background-color: #ff6666;
+    }
+  `]
+})
