@@ -1,0 +1,36 @@
+https://angular.io/api/forms/NgModel
+
+<input [(ngModel)]="name" #ctrl="ngModel" required>
+    <p>Value: {{ name }}</p>
+    <p>Valid: {{ ctrl.valid }}</p>
+    
+    
+    [(ngModel)]="name" is same as [ngModel] ="name" (ngModelChanges) ="name = $event" 
+    
+    Full list of properties available on ngModel :
+    logControl(ctrl : NgModel){
+      console.log(ctrl)
+      console.log(typeof ctrl)
+     }
+    https://v2.angular.io/docs/ts/latest/api/forms/index/AbstractControlDirective-class.html
+   
+class AbstractControlDirective {
+control : AbstractControl
+value : any
+valid : boolean
+invalid : boolean
+pending : boolean
+errors : {[key: string]: any}
+pristine : boolean
+dirty : boolean
+touched : boolean
+untouched : boolean
+disabled : boolean
+enabled : boolean
+statusChanges : Observable<any>
+valueChanges : Observable<any>
+path : string[]
+reset(value?: any) : void
+hasError(errorCode: string, path?: string[]) : boolean
+getError(errorCode: string, path?: string[]) : any
+}
