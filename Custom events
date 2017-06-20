@@ -1,0 +1,51 @@
+
+
+
+<ua-child [(myModel)]= "myname" > is same as :
+<ua-child [myModel]= "myname" (myModelChange) = "myname = $event" >
+
+
+
+property binding : [myModel]= "myname"
+
+ @Input('myModel') set model(value) {
+    this.element.value = value;
+    this.validate();
+  }
+  
+  
+  event binding : (nameChange) = "myname = $event"
+   @Output('myModelChange') modelChange = new EventEmitter();
+   
+    @HostListener('input') onInput() {
+    this.modelChange.emit(this.element.value);
+    this.validate();
+  }
+  
+  ex 2 : When the currency change in the child component , we need to notify the parent about the changes.we do it by [(selected)].
+  In this (selectedChange) event will be caught and 
+  
+   template: `
+    <input type="number" [(ngModel)]="baseAmount"
+      [class.error]="isInvalid(baseAmount)">
+      
+    <currency-select [(selected)]="baseCurrency"></currency-select>
+    = <strong>{{targetAmount}}</strong>
+    <currency-select [(selected)]="targetCurrency"></currency-select>
+    
+    <br><br>
+     <button (click)="logControl(ctrl)">log</button>
+    <input [(ngModel)]="name" #ctrl="ngModel" required>
+    <p>Value: {{ name }}</p>
+    <p>Valid: {{ ctrl.valid }}</p>
+    
+  `,
+  
+  
+  
+  
+  
+  
+  
+  
+  
