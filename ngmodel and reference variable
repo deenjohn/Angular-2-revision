@@ -1,5 +1,7 @@
 https://angular.io/api/forms/NgModel
 
+Note : ngModule requires adding FormsModule to the imports in AppModule
+
 <input [(ngModel)]="name" #ctrl="ngModel" required>
     <p>Value: {{ name }}</p>
     <p>Valid: {{ ctrl.valid }}</p>
