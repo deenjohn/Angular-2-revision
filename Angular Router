@@ -1,0 +1,95 @@
+
+app.module.ts
+resgister routing in app module
+@NgModule({
+  imports: [BrowserModule, FormsModule, routing]
+  
+  routing.ts
+  import { RouterModule } from '@angular/router';
+  export const routing = RouterModule.forRoot([
+  {
+    path: 'login',
+    component: LoginFormComponent
+  }
+  {
+    path: '',
+    redirectTo: '/artists',
+    pathMatch: 'full'
+  }
+]);
+
+ app.component.ts
+  <router-outlet></router-outlet> is a directive from router module
+  https://angular.io/api/router/RouterOutlet
+  
+  
+  
+  Route parameters 
+  
+  
+  {
+    path: 'artists/:artistId',
+    component: ArtistDetailComponent
+  }
+  
+  in artist list component 
+  <td>
+      <a [routerLink]="['/artists', artist.id]">{{artist.name}}</a>
+    </td>
+    
+    export class ArtistListComponent {
+
+  artists;
+
+  constructor(artistService: ArtistService) {
+    this.artists = artistService.getArtists();
+  }
+
+}
+
+in artist detail component
+
+import { ActivatedRoute } from '@angular/router';
+ActivatedRoute is a class that represents active routes 
+
+export class ArtistDetailComponent implements OnInit, OnDestroy {
+
+  artist;
+  paramsSubscription: Subscription;
+
+  constructor(private route: ActivatedRoute,
+              private artistService: ArtistService) { }
+
+
+ - listen for changes to param values
+  ngOnInit() {
+    this.paramsSubscription = this.route.params.subscribe(params => {
+      this.artist = this.artistService.getArtist(params['artistId']);
+    });
+  }
+
+  ngOnDestroy() {
+    this.paramsSubscription.unsubscribe();  
+  }
+  
+  }
+  
+  
+  
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+
+
+  
+  
+  
