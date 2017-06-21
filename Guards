@@ -1,0 +1,88 @@
+
+
+AppComponent calls > 
+              ArtistDetailComponent 
+                                     (before calling AlbumDetailComponent, Angular activates LoginFormComponent
+                                        due to route mapping in routes.ts , path: 'albums/:albumId', canActivate: [LoggedInGuard]) 
+                                   > LoginFormComponent 
+                                                          > AlbumDetailComponent 
+                                                                               
+
+
+
+
+import { Injectable } from '@angular/core';
+import { CanActivate, Router,
+         ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+import { LoginService } from './login.service';
+
+@Injectable()
+export class LoggedInGuard implements CanActivate {
+
+  constructor(private router: Router,
+              private loginService: LoginService) { }
+
+  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+    console.log(state.url) ///albums/c1f40fac-2abd-3f0c-a635-26d166766b46
+    console.log(route.component.toString()) //function AlbumDetailComponent
+    console.log(route.pathFromRoot) 
+    
+    if (!this.loginService.loggedIn) {
+      this.router.navigate(['/login']);
+      return false;
+    }
+    return true;
+  }
+
+}
+
+
+Login service
+export class LoginService {
+
+  loggedIn = false;
+
+  login(user, password) {
+    if (user && password) {
+      this.loggedIn = true;
+    }
+    return this.loggedIn;
+  }
+
+}
+
+LoginFormComponent
+
+export class LoginFormComponent {
+
+  user = '';
+  password = '';
+
+  constructor(private router: Router,
+              private loginService: LoginService) { }
+
+  login() {
+    if (this.loginService.login(this.user, this.password)) {
+      this.router.navigate(['/']);
+    }
+  }
+
+}
+
+In app.routes
+
+{
+    path: 'albums/:albumId',
+    component: AlbumDetailComponent,
+    canActivate: [LoggedInGuard]
+  },
+
+Before activating the above route , Angular router will call guard.
+
+
+
+
+
+
+
+
