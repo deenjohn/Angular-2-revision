@@ -1,4 +1,5 @@
 
+Configured via component's providers.
 ###When Angular creates a component, it first asks an injector for the services that the component requires.
 
 An injector maintains a container of service instances that it has previously created. If a requested service instance is not in the container, the injector makes one and adds it to the container before returning the service to Angular. When all requested services have been resolved and returned, 
@@ -9,3 +10,268 @@ Angular can call the component's constructor with those services as arguments. T
 In brief, you must have previously registered a provider of the HeroService with the injector.
 A provider is something that can create or return a service, typically the service class itself
 Registering at a component level means you get a new instance of the service with each new instance of that component.
+
+
+1) Create the service we want to inject
+export class DataService {
+
+  items:Array<any> = [
+    { id: 0, name: 'Pascal Precht', country: 'Germany'},
+    { id: 1, name: 'Christoph Burgdorf', country: 'Germany'},
+    { id: 2, name: 'Thomas Burleson', country: 'United States'}
+  ]
+  
+  getItems() {
+    return this.items;
+  }
+
+}
+
+2) import the class service in app module and put in providers
+import { DataService } from './data.service';
+@NgModule({
+  imports: [BrowserModule],
+  declarations: [AppComponent],
+  providers: [DataService],
+  bootstrap: [AppComponent]
+})
+
+3)
+ constructor(private dataService: DataService) {}
+ this means we need the instance of type  DataService to be injected in this component.
+ 
+ import { Component, OnInit } from '@angular/core'
+import { DataService } from './data.service';
+
+@Component({
+  selector: 'list-component',
+  template: `
+    <ul>
+      <li *ngFor="let item of items">
+        {{item.id}}: {{item.name}} lives in {{item.country}}
+      </li>  
+    </ul>
+  `
+})
+export class AppComponent implements OnInit {
+  
+  items:Array<any>;
+
+  
+  constructor(private dataService: DataService) {}
+
+  ngOnInit() {
+    this.items = this.dataService.getItems();
+  }
+
+}
+ 
+ You can provide the dependency injection only in Appcomponent instead of all the components declared in module.ts
+ 
+ We can also use token :
+  providers : [
+     {provide : DataService , useClass : DataService}
+  ]
+ 
+
+Case 2 :
+
+factory providers :
+Configures the Injector to return a value by invoking a useFactory function
+
+
+export class LogDebugger {
+  constructor(private enabled: boolean) {}
+ 
+ 
+ 
+ export class ListComponent implements OnInit {
+  
+  items:Array<any>;
+
+  
+  constructor(private dataService: DataService,private logDebugger: LogDebugger) {}
+
+  ngOnInit() {
+    this.logDebugger.debug('Getting items...')
+    this.items = this.dataService.getItems();
+  }
+
+}
+
+
+ providers: [
+    DataService,
+    {
+      provide: LogDebugger,
+      useFactory: () => {
+        return new LogDebugger(true);
+      }
+    }
+    ],
+  bootstrap: [ListComponent]
+})
+export class AppModule {
+}
+
+
+case 3 :
+
+deps is a list of provider tokens that map to the dependencies we want to inject.these dependecies
+will be injected in same order in usefactory function.so in " useFactory: (consoleService) => " , we get an instance of consoleService.
+
+
+
+ providers: [
+    DataService,
+    ConsoleService,
+    {
+      provide: LogDebugger,
+      useFactory: (consoleService) => {
+        return new LogDebugger(consoleService, true);
+      },
+      deps: [ConsoleService]
+    }
+    ],
+  bootstrap: [ListComponent]
+})
+export class AppModule {
+}
+
+
+export class LogDebugger {
+  constructor(private ConsoleService, private enabled: boolean) {}
+
+  debug(message) {
+    if (this.enabled) {
+      this.ConsoleService.log(`DEBUG: ${message}`);
+    }
+  }
+}
+
+
+case 4 :
+Injectable 
+
+@Injectable() marks a class as available to an injector for instantiation. Generally speaking, an injector reports an error
+when trying to instantiate a class that is not marked as @Injectable()
+
+@Component, and this decorator class (like @Directive and @Pipe, which you learn about later) is a subtype of @Injectable(). 
+It is in fact @Injectable() decorators that identify a class as a target for instantiation by an injector
+
+
+import { Injectable } from '@angular/core';
+import { LogDebugger } from './log-debugger.service';
+
+@Injectable()  // ifyou don't need Logdebugger then you don't have to put injectable annotation.
+export class DataService {
+
+  items:Array<any> = [
+    { id: 0, name: 'Pascal Precht', country: 'Germany'},
+    { id: 1, name: 'Christoph Burgdorf', country: 'Germany'},
+    { id: 2, name: 'Thomas Burleson', country: 'United States'}
+  ]
+
+  constructor(private logDebugger: LogDebugger) {}
+  
+   getItems() {
+    this.logDebugger.debug('Getting items...')
+    return this.items;
+  }
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+case 4 :
+
+Value providers :
+
+module.ts 
+
+ {
+      provide: 'apiUrl',
+      useValue: './src/api' - this points to json file 
+    }
+    
+ in dataservice.ts
+ 
+ //@Inject('apiUrl') private apiUrl)
+ 
+@Injectable()
+export class DataService {
+ 
+  constructor(private logDebugger: LogDebugger, private http: Http, @Inject('apiUrl') private apiUrl) {}
+
+  getItems() {
+    this.logDebugger.debug('Getting items...');
+    return this.http.get(`${this.apiUrl}/items.json`)
+                    .map(res => res.json())
+  }
+}
+
+
+
+
+Case 5 :
+opaque token : 
+ https://blog.thoughtram.io/angular/2016/05/23/opaque-tokens-in-angular-2.html
+ providers: [
+  { provide: featureEnabledToken, useValue: FEATURE_ENABLED },
+  { provide: configToken, useValue: CONFIG }
+]
+const FEATURE_ENABLED = true;
+
+class MyComponent {
+
+  constructor(
+    @Inject(featureEnabledToken) private featureEnabled,
+    @Inject(configToken) private config
+  ) {...}
+}
+
+
+Use opaque token to avoid name collision of your token
+
+
+
+
+
+
+
+
+
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
