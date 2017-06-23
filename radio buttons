@@ -14,6 +14,8 @@
         <input type="radio" name="colors" (click)="color='cyan'">Cyan
       </div>
       <input type ="text" [(ngModel)] ="color"  >
+      //<input id="name" type="text" [ngModel]="color" /> 
+      //above code will work too
 `
 })
 export class AppComponent{
