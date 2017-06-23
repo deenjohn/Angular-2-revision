@@ -1,0 +1,89 @@
+
+
+https://github.com/angular/angular/blob/4.0.0/packages/core/src/metadata/directives.ts#L953-L954
+https://stackoverflow.com/questions/31623879/angular-2-two-way-binding-using-ngmodel-is-not-working
+
+
+A directive must belong to an NgModule in order for it to be usable 
+ by another directive, component, or application.
+ 
+ 
+ https://thinkster.io/tutorials/angular-2-directives/structural-directives
+
+`selector` may be declared as one of the following:
+   *
+   * - `element-name`: select by element name.
+   * - `.class`: select by class name.
+   * - `[attribute]`: select by attribute name.
+   * - `[attribute=value]`: select by attribute name and value.
+   * - `:not(sub_selector)`: select only if the element does not match the `sub_selector`.
+   * - `selector1, selector2`: select if either `selector1` or `selector2` matches.
+   *
+   
+ .................................................................................................................  
+   
+   Hostbinding :
+   https://stackoverflow.com/questions/37965647/hostbinding-and-hostlistener-what-do-they-do-and-what-are-they-for
+   change the property of binding element.
+   like change the innerText property based on input 
+   
+   import { Component, Directive, HostBinding, Input } from '@angular/core'
+
+// selector: '[first]' . attribute directive.
+// Attribute directives—change the appearance or behavior of an element, component, or another directive
+
+@Directive({
+    selector: '[first]'
+})
+export class FirstDirective{
+    @Input() first
+    // @HostBinding() innerText = 'I'm a Directive'
+    @HostBinding() get innerText(){
+        return this.first
+    }
+}
+
+@Component({
+    selector: 'basic',   
+    template: `<div></div>`
+})
+export class BasicComponent{
+}
+
+@Component({
+    selector: 'app',
+    template: `
+<basic [first]="'Something'"></basic>
+<basic [first]="'Another'"></basic>
+<basic [first]="'Third'"></basic>
+`
+})
+export class AppComponent{}
+
+
+
+HostListner
+The @HostListener decorator lets you subscribe to events of the DOM element that hosts an attribute directive
+
+ex 2 : 
+<p [myHighlight]="color">Highlight me!</p>
+
+This is input property binding '@Input() myHighlight: string; '  and applies the attribute directive 'myHighlight'.both have the same name.
+Input alias : @Input('myHighlight') highlightColor: string;
+
+.............................................................................................
+Two instances of directive are created below
+
+ <p [myHighlight]="color">Highlight me!</p>
+      
+      <p [myHighlight]="color" defaultColor="violet">
+
+
+
+
+
+
+
+
+
+
