@@ -1,0 +1,24 @@
+
+
+
+@Component({
+    selector: 'app',
+    template: `
+      <basic [first]="'Something'"></basic>
+      <basic [first]="'Another'"></basic>
+      <basic [first]="'Third'"></basic>
+      <h4>Pick a highlight color</h4>
+      <div>
+        <input type="radio" name="colors" (click)="color='lightgreen'">Green
+        <input type="radio" name="colors" (click)="color='yellow'">Yellow
+        <input type="radio" name="colors" (click)="color='cyan'">Cyan
+      </div>
+      <input type ="text" [(ngModel)] ="color"  >
+`
+})
+export class AppComponent{
+
+
+   color ='';
+
+}
