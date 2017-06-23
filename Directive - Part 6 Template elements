@@ -1,0 +1,79 @@
+https://www.w3schools.com/cssref/sel_valid.asp
+https://developer.mozilla.org/en/docs/Web/CSS/:invalid
+https://coursetro.com/posts/code/24/Angular-2-Class-&-Style-Binding-Tutorial
+
+
+The following example creates a directive that sets the `valid` and `invalid` classes
+on the DOM element that has ngModel directive on it.
+
+declare the directive in ngmodule
+
+import NgModel class in appcomponent for type purpose ,public control:NgModel,  class as below : 
+import { FormsModule ,NgModel} from '@angular/forms';
+
+
+
+in app.component , <input [(ngModel)]="prop"> 
+...............................
+
+@Directive({
+     selector: '[ngModel]',  // will be applied on elements with ngModel 
+     host: {
+      '[class.valid]': 'valid',  // calls valid property defined in class
+      '[class.invalid]': 'invalid'  // calls valid property defined in class
+       }
+      })
+     export class NgModelStatus {
+         constructor(public control:NgModel) {}
+         get valid(){ return this.control.valid; }
+         get invalid (){ return this.control.invalid; }
+    }
+    
+    
+    ........................................
+    import { Component, Directive, Input, HostListener, Injectable } from '@angular/core'
+import { FormsModule ,NgModel} from '@angular/forms';
+
+
+
+@Directive({
+     selector: '[ngModel]',
+     host: {
+      '[class.valid]': 'valid',
+      '[class.invalid]': 'invalid'
+       }
+      })
+     export class NgModelStatus {
+         
+         constructor(public control:NgModel) {
+
+           console.log(control.invalid)
+
+         }
+         get valid(){ return false; }
+         get invalid (){ return true; }
+    }
+
+
+@Component({
+    selector: 'app',
+    template: `
+        
+        <input id ="1" [(ngModel)]="prop" /> 
+        <input  id ="2" [ngModel] type="email"  required /> 
+    
+      `,
+      styles: [`
+    
+        .valid { background: green; }
+        .invalid { background: red; }
+    `]
+})
+export class AppComponent{
+    //only for visuals
+    prop ;
+    constructor(private tracking:TrackingService){}
+}
+
+
+
