@@ -23,6 +23,7 @@ It can be accessed anywhere in the entire template.
 ng-container
 https://angular.io/guide/structural-directives
 https://stackoverflow.com/questions/39547858/angular-2-ng-container
+https://netbasal.com/getting-to-know-the-ng-container-directive-in-angular-a97b7a33c8ea
 
 problem : You can't wrap the options in a conditional <div> or a <span>
 The browser won't display an <option> within a <span>
