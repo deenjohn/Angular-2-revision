@@ -1,0 +1,30 @@
+Structural directives are easy to recognize. An asterisk (*) precedes the directive attribute name as in this example.
+
+src/app/app
+<div *ngIf="hero" >{{hero.name}}</div>
+
+
+asterisk (*) is a convenience notation and the string is a microsyntax rather than the usual template expression. 
+Angular desugars this notation into a marked-up <ng-template> that surrounds the host element and its descendents. 
+Each structural directive does something different with that template
+
+The asterisk (*) prefix
+
+Surely you noticed the asterisk (*) prefix to the directive name and wondered why it is necessary and what it does.
+
+Here is *ngIf displaying the hero's name if hero exists.
+<div *ngIf="hero" >{{hero.name}}</div>
+
+
+Then it translates the template attribute into a <ng-template> element, wrapped around the host element, like this
+
+<ng-template [ngIf]="hero">
+  <div>{{hero.name}}</div>
+</ng-template>
+
+
+One structural directive per host element
+
+Someday you'll want to repeat a block of HTML but only when a particular condition is true. 
+You'll try to put both an *ngFor and an *ngIf on the same host element.
+Angular won't let you. You may apply only one structural directive to an element.
