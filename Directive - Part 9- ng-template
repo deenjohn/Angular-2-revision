@@ -1,0 +1,21 @@
+
+
+The <ng-template>
+
+https://angular.io/guide/structural-directives#the-ng-template
+
+The <ng-template> is an Angular element for rendering HTML. It is never displayed directly. 
+In fact, before rendering the view, Angular replaces the <ng-template> and its contents with a comment.
+
+
+If there is no structural directive and you merely wrap some elements in a <ng-template>, 
+those elements disappear. That's the fate of the middle "Hip!" in the phrase "Hip! Hip! Hooray!".
+
+src/app/app.component.html (template-tag)
+ 
+<p>Hip!</p>
+<ng-template>
+  <p>Hip!</p>
+</ng-template>
+<p>Hooray!</p>
+
