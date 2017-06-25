@@ -1,0 +1,33 @@
+Write a structural directive
+https://angular.io/guide/structural-directives#write-a-structural-directive
+https://stackoverflow.com/questions/36266453/how-to-use-templateref?rq=1
+
+<p *myUnless="condition">Show this sentence unless the condition is true.</p>
+
+translates to 
+
+<p template="myUnless condition" >Show this sentence unless the condition is true.</p>
+
+
+import { Directive, Input, TemplateRef, ViewContainerRef } from '@angular/core';
+ 
+@Directive({ selector: '[myUnless]'})
+export class UnlessDirective {
+  private hasView = false;
+ 
+  constructor(
+    private templateRef: TemplateRef<any>,
+    private viewContainer: ViewContainerRef) { }
+ 
+  @Input() set myUnless(condition: boolean) {
+    if (!condition && !this.hasView) {
+      this.viewContainer.createEmbeddedView(this.templateRef);
+      this.hasView = true;
+    } else if (condition && this.hasView) {
+      this.viewContainer.clear();
+      this.hasView = false;
+    }
+  }
+}
+
+
