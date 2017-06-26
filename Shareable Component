@@ -1,0 +1,53 @@
+
+
+import {BrowserModule} from "@angular/platform-browser";
+import {AppComponent} from "./app.component";
+import {NgModule} from "@angular/core";
+import {HomeModule} from "./home/home.module";
+import {ServicesModule} from "./services/services.module";
+@NgModule({
+    imports:[BrowserModule, HomeModule, ServicesModule.forRoot()],
+    declarations:[AppComponent],
+    bootstrap:[AppComponent]
+})
+export class AppModule{}
+
+
+home.module.ts
+It uses WidgetModule 
+
+import {NgModule} from "@angular/core";
+import {HomeComponent} from "./home.component";
+import {WidgetModule} from "../widgets/widgets.module";
+@NgModule({
+    imports:[WidgetModule],
+    declarations:[HomeComponent],
+    exports:[HomeComponent]
+})
+export class HomeModule{}
+
+home.component.ts
+it uses Widget component which is imported in home.module.ts
+
+import {Component} from "@angular/core";
+import {SimpleService} from "../services/services.module";
+@Component({
+    selector: 'home',
+    template: `
+<div>I'm a Home component</div>
+<widget-one></widget-one>
+<widget-two></widget-two>
+`
+})
+
+export class HomeComponent{
+    constructor(private simpleService:SimpleService){}
+}
+
+
+
+
+
+export class HomeComponent{
+    constructor(private simpleService:SimpleService){}
+}
