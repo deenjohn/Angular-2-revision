@@ -1,0 +1,56 @@
+
+
+Renderer works even for non-browser environment
+
+
+@Component({
+    selector: 'widget-three',
+    template: `
+<input #input type="text">
+`
+})
+export class WidgetThree{
+    @ViewChild('input') input;
+
+    constructor(private renderer:Renderer){}
+
+    ngAfterViewInit(){
+       
+            this.input.nativeElement.focus();
+           
+        
+    }
+}
+
+Solution :
+
+ this.renderer.invokeElementMethod(
+            this.input.nativeElement,
+            'focus',
+            []
+        )
+
+
+
+
+
+
+@Component({
+    selector: 'widget-three',
+    template: `
+<input #input type="text">
+`
+})
+export class WidgetThree{
+    @ViewChild('input') input;
+
+    constructor(private renderer:Renderer){}
+
+    ngAfterViewInit(){
+        this.renderer.invokeElementMethod(
+            this.input.nativeElement,
+            'focus',
+            []
+        )
+    }
+}
