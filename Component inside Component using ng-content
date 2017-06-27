@@ -1,0 +1,43 @@
+
+
+@Component({
+    selector: 'home',
+    template: `
+<widget-two>
+
+    <widget-one [message]="simpleService.message"></widget-one>
+
+</widget-two>
+
+<widget-two>
+    Some other content
+</widget-two>
+
+`
+})
+export class HomeComponent{
+    constructor(private simpleService:SimpleService){}
+}
+
+
+   template: `
+<h2>Above</h2>
+
+    <ng-content></ng-content>
+
+<h2>Below</h2>
+`
+})
+export class WidgetTwo{
+}
+
+
+   template: `
+<h2>One's message:</h2>
+<h3>{{message}}</h3>
+`
+})
+export class WidgetOne{
+    @Input() message;
+}
+
