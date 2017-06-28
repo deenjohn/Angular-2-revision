@@ -1,0 +1,47 @@
+
+
+<app-on-init *ngIf="display"></app-on-init>
+
+@Component({
+  selector: 'currency-converter',
+  template: `
+   
+    <button class="ui primary button" (click)="toggle()">
+      Toggle
+    </button>
+    <app-on-init *ngIf="display"></app-on-init>
+  `
+  
+})
+export class AppComponent  {
+  display: boolean;
+
+ constructor() {
+    this.display = true;
+  }
+
+  toggle(): void {
+    this.display = !this.display;
+  }
+
+}
+
+@Component({
+  selector: 'app-on-init',
+  template: `
+  <div class="ui label">
+    <i class="cubes icon"></i> Init/Destroy
+  </div>
+  `
+})
+export class OnInitComponent implements OnInit, OnDestroy {
+  constructor() { }
+
+  ngOnInit(): void {
+    console.log('On init');
+  }
+
+  ngOnDestroy(): void {
+    console.log('On destroy');
+  }
+}
