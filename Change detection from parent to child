@@ -1,0 +1,39 @@
+AppComponent >> MoviesComponent >> MovieComponent 
+
+When you change a property in AppComponent , which is used in MovieComponent ,
+then this change is reflected in child component and MovieComponent is re-renderd with changed property value
+
+
+
+<app _nghost-ltx-1="">
+
+	<h1 _ngcontent-ltx-1="">
+	  
+	</h1>
+
+	<button _ngcontent-ltx-1=""> Click me in AppComponent</button>
+  
+	<movies _ngcontent-ltx-1="" _nghost-ltx-2="" ng-reflect-movies="[object Object],[object Object],[object Object]">
+		    <h1 _ngcontent-ltx-2="">List of movies</h1>
+		  
+			  <!--template bindings={
+			  "ng-reflect-ng-for-of": "[object Object],[object Object],[object Object]"
+			  }-->
+		
+		    <movie _ngcontent-ltx-2="" _nghost-ltx-3="" ng-reflect-movie="[object Object]">
+			   <p _ngcontent-ltx-3="">
+				UPDATED
+			  </p>
+				 </movie><movie _ngcontent-ltx-2="" _nghost-ltx-3="" ng-reflect-movie="[object Object]">
+				<p _ngcontent-ltx-3="">
+					 m2
+				  </p>
+			   </movie><movie _ngcontent-ltx-2="" _nghost-ltx-3="" ng-reflect-movie="[object Object]">
+				<p _ngcontent-ltx-3="">
+				   m3
+				</p>
+			</movie>
+		
+	</movies>
+
+</app>
