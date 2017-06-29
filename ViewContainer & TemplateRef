@@ -1,0 +1,57 @@
+
+
+@Component({
+ selector: 'app',
+  template: `
+   <button class="ui primary button" (click)="toggle()">
+  Toggle
+</button>
+
+<!--<div *ngBookIf="display">
+  The message is displayed
+</div>-->
+
+<template ngBookIf [ngBookIf]="display">
+  The message is displayed
+</template>
+`
+})
+
+export class AppComponent  {
+
+    display: boolean;
+
+    constructor() {
+      this.display = true;
+    }
+
+    toggle() {
+      this.display = !this.display;
+    }
+}
+
+
+@Input() set ngBookIf(condition)  This method will be called every time we set a value on the ngBookIf property of our class. That is,
+this method will be called anytime the condition in ngBookIf="condition" changes.
+
+
+
+  selector: '[ngBookIf]'
+})
+export class NgBookIfDirective {
+  constructor(private viewContainer: ViewContainerRef,
+              private template: TemplateRef<any>) {}
+
+  @Input() set ngBookIf(condition) {
+    if (condition) {
+      this.viewContainer.createEmbeddedView(this.template);
+    } else {
+      this.viewContainer.clear();
+    }
+  }
+}
+
+
+
+
+
