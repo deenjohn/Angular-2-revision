@@ -1,0 +1,102 @@
+
+@Component({
+ selector: 'app',
+  templateUrl: '../src/on-changes/on-changes-demo.component.html'
+  
+ /* template: `
+    <h2>Above</h2>
+
+      <app-on-changes>
+      </app-on-changes>
+
+    <h2>Below </h2>
+`*/
+})
+
+export class AppComponent implements OnInit{
+ display: boolean;
+  name: string;
+  comment: string;
+
+  constructor() { }
+
+  ngOnInit() {
+    this.display = true;
+    this.name = 'Felipe Coury';
+    this.comment = 'I am learning so much!';
+  }
+
+  setValues(namefld, commentfld): void {
+    this.name = namefld.value;
+    this.comment = commentfld.value;
+  }
+
+  toggle(): void {
+    this.display = !this.display;
+  }
+}
+
+
+/*
+when you change any of these properties - "name" & "comment" , ngonchanges 
+<app-on-changes
+  [name]="name"
+  [comment]="comment"
+  ></app-on-changes>
+
+*/
+
+@Component({
+  selector: 'app-on-changes',
+  templateUrl: '../src/on-changes/on-changes.component.html'
+  //./on-changes/on-changes.component'
+})
+export class OnChangesComponent implements OnChanges {
+  @Input('name') name: string;
+  @Input('comment') comment: string;
+
+  ngOnChanges(changes: {[propName: string]: SimpleChange}): void {
+    console.log('Changes', changes);
+  }
+}
+
+
+on-changes.component.html
+
+<h4 class="ui horizontal divider header">
+  OnChanges
+</h4>
+
+<div class="ui form">
+  <div class="field">
+    <label>Name</label>
+    <input
+      type="text"
+      #namefld
+      value="{{name}}"
+     (keyup)="setValues(namefld, commentfld)">
+  </div>
+
+  <div class="field">
+    <label>Comment</label>
+    <textarea
+      #commentfld
+      (keyup)="setValues(namefld, commentfld)"
+      rows="2">{{comment}}</textarea>
+  </div>
+</div>
+
+<app-on-changes
+  [name]="name"
+  [comment]="comment"
+  ></app-on-changes>
+
+
+
+
+
+
+
+
+
+
