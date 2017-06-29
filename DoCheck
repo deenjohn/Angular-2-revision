@@ -1,0 +1,82 @@
+
+Change detection from Parent to Child :
+
+AppComponent >> MoviesComponent >> MovieComponent
+
+
+export class AppComponent implements DoCheck{
+  movies = [ 
+    { title: 'm1' },
+    { title: 'm2' },
+    { title: 'm3' }
+  ];
+
+  ngDoCheck(){
+    console.log("log AppComponent")
+  }
+  onClick(){
+    
+  }
+
+}
+
+
+
+@Component({
+  selector: 'movies',
+  templateUrl: '../src/movies/movies.component.html',
+  styleUrls: ['../src/movies/movies.component.css']
+})
+export class MoviesComponent implements DoCheck  {
+  @Input() movies; 
+  ngDoCheck(){
+    console.log("log MoviesComponent")
+  }
+
+}
+
+
+
+@Component({
+  selector: 'movie',
+  templateUrl: '../src/movie/movie.component.html',
+  styleUrls: ['../src/movie/movie.component.css']
+})
+export class MovieComponent implements DoCheck{
+  @Input() movie; 
+
+  ngDoCheck(){
+    console.log("log MovieComponent")
+  }
+
+}
+
+
+...........................................................................................................
+
+The default notification system implemented by OnChanges is triggered every time the Angular
+change detection mechanism notices there was a change on any of the directive properties.
+However, there may be times when the overhead added by this change notification may be too
+much, specially if performance is a concern.
+There may be times when we just want to do something in case an item was removed or added, or
+if only a particular property changed, for instance.
+If we run into one of these scenarios, we can use the DoCheck hook
+
+
+It’s important to note that the OnChanges hook gets overriden by DoCheck so if we
+implement both, OnChanges will be ignored.
+
+
+Checking for changes
+In order to evaluate what changed, Angular provides differs. Differs will evaluate a given property
+of your directive to determine what changed.
+There are two types of built-in differs: iterable differs and key-value differs.
+
+Iterable differs
+Iterable differs should be used when we have a list-like structure and we’re only interested on
+knowing things that were added or removed from that list.
+
+Key-value differs
+Key-value differs should be used for dictionary-like structures, and work at the key level. This differ
+will identify changes when a new key is added, when a key removed and when the value of a key
+changed.
