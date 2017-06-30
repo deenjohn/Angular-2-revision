@@ -1,6 +1,14 @@
 
 
-https://angular.io/api/core/ChangeDetectionStrategy
+https://angular.io/api/core/ChangeDetectionStrategy'
+https://stackoverflow.com/questions/39795634/angular-2-change-detection-and-changedetectionstrategy-onpush
+
+OnPush strategy
+
+When a component is marked with changeDetection: ChangeDetectionStrategy.OnPush, angular will assume 
+that the input object did not change if the object reference did not change.
+Meaning that changing a property won't trigger change detection.
+
 
 import { Component ,OnInit,DoCheck, Input} from '@angular/core';
 import {OnChangesComponent} from './on-changes/on-changes.component'
