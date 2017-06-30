@@ -1,0 +1,98 @@
+
+
+https://angular.io/api/core/ChangeDetectionStrategy
+
+import { Component ,OnInit,DoCheck, Input} from '@angular/core';
+import {OnChangesComponent} from './on-changes/on-changes.component'
+
+
+
+
+
+@Component({
+  selector: 'app', 
+  templateUrl: '../src/app.component.html',
+  styleUrls: ['../src/app.component.css']
+})
+export class AppComponent implements DoCheck{
+
+  constructor(){
+    var input ='Apple'
+    input = input.toUpperCase(); //state changed 
+
+
+  }
+
+  movies = [ 
+    { title: 'm1' },
+    { title: 'm2' },
+    { title: 'm3' }
+  ];
+
+  ngDoCheck(){
+    console.log("log AppComponent")
+  }
+  onClick(){
+    //this.movies[0].title = "UPDATED" ;
+    this.movies[0] = {title : 'UPDATED'}
+  }
+
+}
+
+
+
+import { Component, Input,DoCheck ,ChangeDetectionStrategy } from '@angular/core';
+
+@Component({
+  selector: 'movie',
+  templateUrl: '../src/movie/movie.component.html',
+  styleUrls: ['../src/movie/movie.component.css'] ,
+  changeDetection :ChangeDetectionStrategy.OnPush
+})
+export class MovieComponent implements DoCheck{
+  @Input() movie;
+   
+   /* changedetection only going to look at movie object
+    passed to this component
+     this.movies[0].title = "UPDATED"
+     we are updating the movie title but movie refrence still points to same location.
+     hence no change detection will occur
+
+     this.movies[0] = {title : 'UPDATED'}
+     This time movie reference points to a new location , 
+     hence this change is pushed to child component
+    
+
+    */
+
+  ngDoCheck(){
+    console.log("log MovieComponent")
+  }
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
