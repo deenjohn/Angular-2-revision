@@ -1,0 +1,31 @@
+consumer would provide content
+
+
+https://stackoverflow.com/questions/36545478/angular-2-access-ng-content-within-component
+https://stackoverflow.com/questions/39547858/angular-2-ng-container?rq=1
+mosh hammediani lecture
+
+
+child 
+
+selector : child-panel
+
+  <ng-content select = ".heading" > </ng-content>
+   //this ng-content is to replaced by : <div class ="heading" > Heading </div> , from parent which is the consumer 
+
+  <ng-content select = ".body" > </ng-content>
+
+.........................................................
+in Parent 
+this will provide content to child
+
+<child-panel>
+     <div class ="heading" > Heading </div>
+
+    <div class ="body" > 
+
+        <h2>Body </h2>
+        <p> Some content here .....</p>
+  
+    </div>
+</child-panel>
