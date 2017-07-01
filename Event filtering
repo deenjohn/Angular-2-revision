@@ -1,0 +1,9 @@
+
+
+<input (keyup.enter) ="onkeyup()" />
+
+onkeyup() method is called only if enter key is pressed.
+
+
+
+
