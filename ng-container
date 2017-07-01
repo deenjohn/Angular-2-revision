@@ -1,0 +1,48 @@
+
+
+
+child 
+
+selector : child-panel
+
+  <ng-content select = ".heading" > </ng-content>
+   //this ng-content is to replaced by : <div class ="heading" > Heading </div> , from parent which is the consumer 
+
+  <ng-content select = ".body" > </ng-content>
+
+.........................................................
+in Parent 
+this will provide content to child
+
+<child-panel>
+     <div class ="heading" > Heading </div>
+
+    <div class ="body" > 
+
+        <h2>Body </h2>
+        <p> Some content here .....</p>
+  
+    </div>
+</child-panel>
+
+
+Problem:
+
+We only want to show "Heading" , not " <div class ="heading" > Heading </div>"
+
+
+Solution
+
+<child-panel>
+     <ng-container class ="heading" > Heading </ng-container>
+
+    <div class ="body" > 
+
+        <h2>Body </h2>
+        <p> Some content here .....</p>
+  
+    </div>
+</child-panel>
+
+
+
