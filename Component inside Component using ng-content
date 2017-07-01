@@ -1,17 +1,24 @@
+Egghead lesson 08- nesting elements with ng-content
 
+
+
+widget-one inside widget-two
+
+...........................................................................
+HomeComponent
 
 @Component({
     selector: 'home',
     template: `
-<widget-two>
+        <widget-two>
 
-    <widget-one [message]="simpleService.message"></widget-one>
+            <widget-one [message]="simpleService.message"></widget-one>
 
-</widget-two>
+    </widget-two>
 
-<widget-two>
-    Some other content
-</widget-two>
+    <widget-two>
+         Some other content
+    </widget-two>
 
 `
 })
@@ -20,17 +27,26 @@ export class HomeComponent{
 }
 
 
+
+// HomeComponent is the consumer of widget-two and widget-one
+
+.............................................................................................
+WidgetTwo
+
    template: `
-<h2>Above</h2>
+    <h2>Above</h2>
 
-    <ng-content></ng-content>
+        <ng-content></ng-content>
+        //will be replaced by anything we place inside widget-two
 
-<h2>Below</h2>
-`
+    <h2>Below</h2>
+  `
 })
 export class WidgetTwo{
 }
 
+...........................................................................................................................
+WidgetOne
 
    template: `
 <h2>One's message:</h2>
