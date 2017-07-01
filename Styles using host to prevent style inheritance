@@ -1,0 +1,11 @@
+How to prevent style inheritance ?
+
+styles:[`
+:host{
+    display: block;
+    border: 3px dashed black;
+    font-family: "Times New Roman";
+}
+
+
+host is the host of template
