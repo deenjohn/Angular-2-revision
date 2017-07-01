@@ -1,0 +1,64 @@
+
+
+@Component({
+  selector: 'app',
+  template: `
+  <div>
+   <fav [isFav] ="post.isFavourite" (change) ="onFavChange($event)"> </fav>
+  </div>` 
+ // styleUrls: ['']
+ 
+})
+
+export class AppComponent  {
+  
+    post = {
+          title : 'Title' ,
+        isFavourite :'true'
+
+    }
+
+  onFavChange(param){
+    console.log("fav changed ",param)
+  }
+
+}
+
+
+
+
+@Component({
+  selector: 'fav',
+ template: `
+    <span
+        class ="glyphicon"
+        [class.glyphicon-star]= "isSelected"
+        [class.glyphicon-star-empty]= "!isSelected"
+        (click) ="onClick()"> 
+    </span>
+  `
+  // styleUrls: ['']
+
+})
+
+
+export class FavouriteComponent implements OnInit {
+  
+    @Input('isFav') isSelected :boolean
+    @Output() change  = new EventEmitter();
+    constructor(){}
+
+    ngOnInit(){
+
+    }
+
+    onClick(){
+        this.isSelected = !this.isSelected ;
+        this.change.emit(this.isSelected)
+    }
+
+
+}
+
+
+
