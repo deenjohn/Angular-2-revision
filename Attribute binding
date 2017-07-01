@@ -1,0 +1,17 @@
+
+
+
+In Angular ,we bind to properties , not the attribute.
+
+
+Some of the attributes have one to one mappping with the properties.
+
+ex : < img [src] =" " />
+
+but , <td [colspan] ="colspan"> </td> would throw an error as colspan is not a property of td element.
+It's an attribute.https://www.w3schools.com/tags/tag_td.asp
+
+To bind an attribute , we use 
+
+[attr.colspan] ="colspan"
+
