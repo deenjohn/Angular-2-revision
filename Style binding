@@ -1,0 +1,5 @@
+https://www.w3schools.com/jsref/dom_obj_style.asp
+
+
+<button [style.backgroundColor] ="isActive ? 'red' : 'blue' " >
+
