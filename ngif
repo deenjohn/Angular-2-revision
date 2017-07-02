@@ -1,0 +1,49 @@
+
+
+ngif is a structural directive.If condition evaluates false then that block will be removed from dom
+
+ex 1 :
+<div  *ngIf ="courses.length > 0" >
+  List of courses
+</div>
+
+
+<div   *ngIf ="courses.length == 0" >
+  No courses yet
+</div>
+
+ex 2 :
+
+<div  *ngIf ="courses.length > 0 ;else noCourses" >
+  List of courses
+</div>
+
+
+<ng-template #noCourses>
+  No courses yet
+</ng-template >
+
+
+
+ex 3 :
+
+
+
+<div  *ngIf ="courses.length > 0 ; then  courseList else noCourses" >
+  List of courses
+</div>
+
+<ng-template #courseList>
+  List of courses
+</ng-template>
+
+
+<ng-template #noCourses>
+  No courses yet
+</ng-template >
+
+
+
+
+
+
