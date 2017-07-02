@@ -1,0 +1,36 @@
+https://angular.io/api/forms/AbstractControlDirective
+
+ <input name="test" #test required (keyup)="onkeyup(test)" >
+ 
+ vs 
+ 
+  <input ngModel name="test" #test ="ngModel" required (keyup)="onkeyup(test)" >
+  
+  
+  #test ="ngModel" is better approach as ngModel object gives you many properties and methods.
+  
+  You can then access the control using the directive's control property, but most properties you'll need (like valid and dirty)
+  will fall through to the control anyway, so you can access them directly. 
+  You can see a full list of properties directly available in AbstractControlDirective
+  https://angular.io/api/forms/AbstractControlDirective
+  
+  class AbstractControlDirective {
+  control: AbstractControl|null
+  value: any
+  valid: boolean|null
+  invalid: boolean|null
+  pending: boolean|null
+  errors: ValidationErrors|null
+  pristine: boolean|null
+  dirty: boolean|null
+  touched: boolean|null
+  untouched: boolean|null
+  disabled: boolean|null
+  enabled: boolean|null
+  statusChanges: Observable<any>|null
+  valueChanges: Observable<any>|null
+  path: string[]|null
+  reset(value?: any): void
+  hasError(errorCode: string, path?: string[]): boolean
+  getError(errorCode: string, path?: string[]): any
+}
