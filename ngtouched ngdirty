@@ -1,0 +1,3 @@
+touched means the element has recieved focus
+
+dirty means something has been typed in it. once dirty can't go pristine
