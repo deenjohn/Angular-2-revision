@@ -1,0 +1,85 @@
+
+https://angular.io/api/forms/NgForm#selectors
+https://www.w3schools.com/tags/att_form_novalidate.asp
+https://stackoverflow.com/questions/11761202/whats-the-difference-between-novalidate-and-formnovalidate-attributes-of-html5
+
+Selectors
+
+form:not([ngNoForm]):not([formGroup])
+ngForm
+[ngForm]
+
+Outputs
+
+ngSubmit bound to NgForm.ngSubmit : these are the event emitter 
+
+As soon as you import the FormsModule, this directive becomes active by default on all <form> tags. 
+You don't need to add a special selector.
+
+You can export the directive into a local template variable using ngForm as the key (ex: #myForm="ngForm"). 
+This is optional, but useful. Many properties from the underlying FormGroup instance are duplicated on the 
+directive itself, so a reference to it will give you access to the aggregate value and validity status of the form, 
+as well as user interaction properties like dirty and touched.
+
+
+Aplied to any form element that does not have [ngNoForm]  or [formGroup] attributes
+
+selector: 'form:not([ngNoForm]):not([formGroup]),ngForm,[ngForm]'
+
+Ex :
+<form >
+
+
+</form>
+
+Angular will automatically apply ngForm here
+
+<form class="ng-untouched ng-pristine ng-invalid">
+
+
+...............................................................
+
+
+
+import { NgModel } from '@angular/forms';
+import { Component} from '@angular/core';
+import {NgForm} from '@angular/forms';
+
+@Component({
+  selector: 'app',
+  template: `
+  <form #f="ngForm" (ngSubmit)="onSubmit(f)" novalidate>
+      <input name="first" ngModel required #first="ngModel">
+      <input name="last" ngModel>
+      <button>Submit</button>
+    </form>
+    
+    <p>First name value: {{ first.value }}</p>
+    <p>First name valid: {{ first.valid }}</p>
+    <p>Form value: {{ f.value | json }}</p>
+    <p>Form valid: {{ f.valid }}</p>
+  `
+ 
+})
+
+export class AppComponent  {
+  
+  onSubmit(f: NgForm) {
+
+    console.log(f.value);  // { first: '', last: '' }
+    console.log(f.valid);  // false
+  }
+
+
+
+
+}
+
+
+
+
+
+
+
+
+
