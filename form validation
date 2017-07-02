@@ -1,0 +1,56 @@
+
+
+import { NgModel } from '@angular/forms';
+import { Component} from '@angular/core';
+
+
+@Component({
+  selector: 'app',
+  template: `
+  <div>
+   <fav [isFav] ="post.isFavourite" (change) ="onFavChange($event)"> </fav>
+  </div>
+  <div >
+    <label for = "firstName"> FirstName </label>
+     <input required minlength="3" ngModel name ="firstName" id ="firstName"  
+      #firstName = "ngModel" (change) ="log(firstName)" />
+      
+      //only once touched , display these errors
+     <div class ="alert alert-danger" *ngIf ="firstName.touched">
+         <div  *ngIf ="firstName.errors.required" >
+            FirstName is required !!
+         </div>
+         <div  *ngIf ="firstName.errors.minlength" >
+            Minimum {{firstName.errors.minlength.requiredLength}} characters required !!
+         </div>
+     </div>
+  </div>
+  <div>
+      <input type="text" value="deen" ngModel name ="inp" required>
+  </div>
+  
+  ` 
+ // styleUrls: ['']
+ 
+})
+
+export class AppComponent  {
+  firstName :NgModel;
+
+     log(x){
+       console.log(x)
+
+     }
+
+
+
+    post = {
+          title : 'Title' ,
+        isFavourite :'true'
+
+    }
+
+  onFavChange(param){
+    console.log("fav changed ",param)
+  }
+
