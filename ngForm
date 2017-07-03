@@ -49,6 +49,7 @@ import {NgForm} from '@angular/forms';
   selector: 'app',
   template: `
   <form #f="ngForm" (ngSubmit)="onSubmit(f)" novalidate>
+   // f contains all the details about the form as a whole. touched,untouched,valid,invalid, 
       <input name="first" ngModel required #first="ngModel">
       <input name="last" ngModel>
       <button>Submit</button>
@@ -74,8 +75,6 @@ export class AppComponent  {
 
 
 }
-
-
 
 
 
