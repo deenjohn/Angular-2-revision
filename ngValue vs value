@@ -1,0 +1,33 @@
+
+
+<form #f="ngForm" (ngSubmit)="onSubmit(f)" novalidate>
+      <input name="first" ngModel required #first="ngModel">
+      <input name="last" ngModel>
+      <input name ="isSubscribed" type ="checkbox" ngModel >
+      <button>Submit</button>
+      <div class="form-group">
+        <label for ="contactMethod">Contact Method</label>
+        <select ngModel name ="contactMethod" id ="contactMethod" class ="form-control" >
+          <option  *ngFor ="let method of contactMethods" [ngValue] ="method" >
+              {{method.name}}
+          </option>
+        </select>
+      
+       </div>
+
+  </form>
+    
+    
+    
+    ..............................................................................
+    using [value]
+    
+    <p>First name value: {{ first.value }}</p>
+    will result in : 
+    Form value: { "first": "", "last": "", "isSubscribed": "", "contactMethod": "[object Object]" }
+    
+    
+    using [ngValue]
+    <p>First name value: {{ first.value }}</p>
+    will result in : 
+   Form value: { "first": "", "last": "", "isSubscribed": "", "contactMethod": { "id": "2", "name": "Phone" } }
