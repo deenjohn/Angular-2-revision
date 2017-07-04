@@ -1,5 +1,50 @@
+ex1 :
+
+ <label for="name">Name</label>
+    
+        <input type="text" id="name" class="form-control"
+               required minlength="4" maxlength="24"
+               name="name" [(ngModel)]="hero.name"
+               #name="ngModel" >
+        
+        <div *ngIf="name.errors && (name.dirty || name.touched)"
+             class="alert alert-danger">
+             
+            <div [hidden]="!name.errors.required">
+              Name is required
+            </div>
+            <div [hidden]="!name.errors.minlength">
+              Name must be at least 4 characters long.
+            </div>
+            <div [hidden]="!name.errors.maxlength">
+              Name cannot be more than 24 characters long.
+            </div>
+        </div>
+        <button type="submit" (click) ="log(name)" >Submit </button>
+
+Note the following:
+
+The <input> element carries the HTML validation attributes: required, minlength, and maxlength.
+
+The name attribute of the input is set to "name" so Angular can track this input element and associate 
+it with an Angular form control called name in its internal control model.
+
+The [(ngModel)] directive allows two-way data binding between the input box to the hero.name property.
+
+The template variable (#name) has the value "ngModel" (always ngModel). This gives you a reference to the Angular
+NgModel directive associated with this control that you can use in the template to check for control states such as valid and dirty.
+
+The *ngIf on the <div> element reveals a set of nested message divs but only if there are name errors and the control 
+is either dirty or touched.
+
+Each nested <div> can present a custom message for one of the possible validation errors. There are messages for 
+required, minlength, and maxlength.
 
 
+
+
+
+...............................................................................................................................................................................
 import { NgModel } from '@angular/forms';
 import { Component} from '@angular/core';
 
