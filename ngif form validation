@@ -1,0 +1,6 @@
+
+Problem: 
+userRef.errors.required would throw error in case errors is null
+
+Solution:
+<div *ngIf ="userRef.errors?.required" > This field is required </div>
